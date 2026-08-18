@@ -173,6 +173,7 @@ const DICT: Record<string, Entry> = {
   opt_throttle: { en: "Throttle, ms", ru: "Throttle, мс" },
   opt_timeout: { en: "Timeout, ms", ru: "Таймаут, мс" },
   opt_check_links: { en: "Check broken / empty links while crawling", ru: "Проверять битые/пустые ссылки при обходе" },
+  opt_live_results: { en: "Show found entries in real time during crawl", ru: "Показывать найденное в реальном времени при обходе" },
   opt_probe_per_dir: { en: "Probe hidden files in every crawled folder", ru: "Пробивать скрытые файлы в каждой папке при обходе" },
   opt_probe_max: { en: "Max files/folder", ru: "Макс. файлов/папку" },
   opt_theme: { en: "Theme & view", ru: "Тема и вид" },

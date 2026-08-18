@@ -98,6 +98,7 @@ export interface CrawlOptions {
   throttleMs: number;
   timeoutMs: number;
   checkLinks: boolean;
+  liveResults: boolean; // stream found entries into the list during the crawl
   probePerDir: boolean; // also probe hidden files in every crawled directory
   probePerDirMax: number; // cap per directory (keep small to avoid 429)
   probePaths?: string[]; // enabled scan-path values, injected at crawl start

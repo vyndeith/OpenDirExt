@@ -217,11 +217,19 @@ export class App {
       : undefined;
     const opts = { ...this.settings.crawl, depth: this.crawl.depth, probePaths };
 
+    let lastLive = 0;
     const handle = startCrawl(
       this.rootUrl,
       opts,
       (progress) => { this.crawl.progress = progress; this.render(); },
-      (batch) => { for (const e of batch) merged.set(e.href, e); }
+      (batch) => {
+        for (const e of batch) merged.set(e.href, e);
+        if (this.settings.crawl.liveResults) {
+          this.entries = [...merged.values()];
+          const now = Date.now();
+          if (now - lastLive > 200) { lastLive = now; this.render(); }
+        }
+      }
     );
     this.crawlHandle = handle;
     handle.promise
@@ -489,7 +497,9 @@ export class App {
     const isSel = this.selected.has(e.href);
     const style = styleFor(e, this.settings.rules);
     const tint = CATEGORY_TINT[e.category];
-    const iconKey = this.settings.categoryIcons[e.category] || CATEGORY_ICON[e.category];
+    const iconKey = this.settings.theme.showFileIcons
+      ? this.settings.categoryIcons[e.category] || CATEGORY_ICON[e.category]
+      : e.isDir ? "folder" : "unknown";
     const typeLabel = e.isDir ? "DIR" : (e.ext || e.category).toUpperCase().slice(0, 4);
     const status = this.statuses.get(e.href);
 

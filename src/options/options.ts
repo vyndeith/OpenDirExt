@@ -209,7 +209,8 @@ function render(): void {
       labeled(t("opt_throttle"), input(c.throttleMs, (v) => { c.throttleMs = clampInt(v, 0, 5000); void persist(); }, { type: "number" })),
       labeled(t("opt_timeout"), input(c.timeoutMs, (v) => { c.timeoutMs = clampInt(v, 1000, 120000); void persist(); }, { type: "number" }))
     ),
-    el("div", { style: { display: "flex", alignItems: "center", gap: "10px", marginTop: "14px" } }, toggle(c.checkLinks, (v) => { c.checkLinks = v; void persist(); render(); }), el("span", { style: { fontSize: "13px", color: COLORS.text2 } }, t("opt_check_links"))),
+    el("div", { style: { display: "flex", alignItems: "center", gap: "10px", marginTop: "14px" } }, toggle(c.liveResults, (v) => { c.liveResults = v; void persist(); render(); }), el("span", { style: { fontSize: "13px", color: COLORS.text2 } }, t("opt_live_results"))),
+    el("div", { style: { display: "flex", alignItems: "center", gap: "10px", marginTop: "12px" } }, toggle(c.checkLinks, (v) => { c.checkLinks = v; void persist(); render(); }), el("span", { style: { fontSize: "13px", color: COLORS.text2 } }, t("opt_check_links"))),
     el("div", { style: { display: "flex", alignItems: "center", gap: "10px", marginTop: "12px", flexWrap: "wrap" } },
       toggle(c.probePerDir, (v) => { c.probePerDir = v; void persist(); render(); }),
       el("span", { style: { fontSize: "13px", color: COLORS.text2 } }, t("opt_probe_per_dir")),
@@ -232,7 +233,7 @@ function render(): void {
       labeled(t("opt_lang"), select(settings.lang, ["auto", "en", "ru"] as const, { auto: t("lang_auto"), en: "English", ru: "Русский" }, (v) => { settings.lang = v; setLang(v); void persist(); render(); })),
       labeled(t("opt_accent"), accents),
       labeled(t("opt_density"), select(th.density, ["comfortable", "compact"] as const, { comfortable: t("opt_comfortable"), compact: t("opt_compact") }, (v) => { th.density = v; void persist(); })),
-      el("div", { style: { display: "flex", alignItems: "center", gap: "10px" } }, toggle(th.showFileIcons, (v) => { th.showFileIcons = v; void persist(); }), el("span", { style: { fontSize: "13px", color: COLORS.text2 } }, t("opt_file_icons")))
+      el("div", { style: { display: "flex", alignItems: "center", gap: "10px" } }, toggle(th.showFileIcons, (v) => { th.showFileIcons = v; void persist(); render(); }), el("span", { style: { fontSize: "13px", color: COLORS.text2 } }, t("opt_file_icons")))
     ),
     iconMapEditor()
   ));

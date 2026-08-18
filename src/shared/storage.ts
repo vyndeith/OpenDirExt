@@ -33,7 +33,7 @@ export const DEFAULT_SCAN_PATHS: ScanPath[] = [
 export const DEFAULT_SETTINGS: Settings = {
   lang: "auto",
   rules: DEFAULT_RULES,
-  crawl: { depth: 1, concurrency: 6, throttleMs: 0, timeoutMs: 15000, checkLinks: false, probePerDir: false, probePerDirMax: 3 },
+  crawl: { depth: 1, concurrency: 6, throttleMs: 0, timeoutMs: 15000, checkLinks: false, liveResults: true, probePerDir: false, probePerDirMax: 3 },
   scanner: { enabled: true, concurrency: 4, timeoutMs: 8000, paths: DEFAULT_SCAN_PATHS },
   theme: { accent: ACCENT_OPTIONS[0], density: "comfortable", showFileIcons: true },
   categoryIcons: {},
