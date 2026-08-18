@@ -59,7 +59,7 @@ const DICT: Record<string, Entry> = {
   copy: { en: "Copy", ru: "Копировать" },
   tabs: { en: "Tabs", ru: "Вкладки" },
   download: { en: "Download ▾", ru: "Скачать ▾" },
-  exp_files: { en: "Files (with folders)", ru: "Файлы (с папками)" },
+  exp_files: { en: "File", ru: "Файл" },
   exp_zip: { en: "ZIP archive", ru: "ZIP-архив" },
   exp_aria2: { en: "aria2 input-file", ru: "aria2 input-file" },
   exp_wget_i: { en: "wget -i (list)", ru: "wget -i (список)" },

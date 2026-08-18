@@ -4,7 +4,7 @@ import { COLORS, hexA, RULE_PALETTE } from "../../shared/design";
 import { CATEGORY_TINT, ICON_PATHS, CATEGORY_ICON } from "../../shared/icons";
 import { fmtSize, fmtDate } from "../../shared/format";
 import { styleFor } from "../../shared/highlighter";
-import { relPath, evaluateZipGuard } from "../../shared/exporter";
+import { evaluateZipGuard } from "../../shared/exporter";
 import { getSettings, saveSettings, onSettingsChanged } from "../../shared/storage";
 import { t, setLang } from "../../shared/i18n";
 import { cacheKey, getTree, putTree, deleteTree } from "../../shared/db";
@@ -303,10 +303,10 @@ export class App {
 
   // ---------- export / download ----------
 
-  private async doDownloadStructure(): Promise<void> {
+  private async doDownloadFiles(): Promise<void> {
     const files = this.selectedEntries();
     if (!files.length) return;
-    const items = files.map((e) => ({ url: e.href, filename: relPath(e, this.rootUrl) }));
+    const items = files.map((e) => ({ url: e.href, filename: e.name }));
     const res = await sendBg({ type: "download", items });
     this.fireToast(res.ok ? t("toast_dl_started") : t("toast_error"), res.ok ? t("toast_files_n", items.length) : (res as { error: string }).error);
   }
@@ -629,16 +629,8 @@ export class App {
       const item = (label: string, fn: () => void) =>
         el("div", { class: "hoverable hover-surface", style: { padding: "9px 14px", fontSize: "13px", color: COLORS.text2, cursor: "pointer", whiteSpace: "nowrap" }, onClick: () => { this.menuOpen = false; fn(); } }, label);
       const menu = el("div", { class: "ode-scroll", style: { position: "absolute", bottom: "48px", right: "0", background: COLORS.panel, border: `1px solid ${COLORS.border2}`, borderRadius: "12px", overflow: "hidden", boxShadow: "0 20px 50px -22px rgba(0,0,0,0.85)", minWidth: "220px", maxHeight: "60vh", overflowY: "auto" } },
-        item(t("exp_files"), () => this.doDownloadStructure()),
+        item(t("exp_files"), () => this.doDownloadFiles()),
         item(t("exp_zip"), () => this.doZip()),
-        item(t("exp_aria2"), () => this.doExportList("aria2")),
-        item(t("exp_wget_i"), () => this.doExportList("wget-i")),
-        item(t("exp_wget_r"), () => this.doExportList("wget-r")),
-        item(t("exp_jd"), () => this.doExportList("jdownloader")),
-        item(t("exp_rclone"), () => this.doExportList("rclone")),
-        item(t("exp_m3u"), () => this.doExportList("m3u8")),
-        item(t("exp_json"), () => this.doExportList("json")),
-        item(t("exp_csv"), () => this.doExportList("csv")),
         item(t("exp_txt"), () => this.doExportList("txt"))
       );
       holder.append(menu);
