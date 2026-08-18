@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "Open Directory Explorer",
+  "version": "0.1.0",
+  "description": "Turns bare open-directory listings (Apache, nginx, IIS, Caddy, http.server, lighttpd, h5ai) into a fast file explorer with recursive crawl, highlight rules, broken-file detection and export.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "open-directory-explorer@vynd.dev",
+      "strict_min_version": "115.0"
+    }
+  },
+  "icons": {
+    "48": "icons/icon.svg",
+    "96": "icons/icon.svg"
+  },
+  "permissions": ["storage", "downloads", "activeTab", "scripting"],
+  "host_permissions": ["*://*/*"],
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "action": {
+    "default_title": "Open Directory Explorer",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "48": "icons/icon.svg"
+    }
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  }
+}

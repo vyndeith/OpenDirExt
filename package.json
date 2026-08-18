@@ -1,0 +1,22 @@
+{
+  "name": "open-directory-explorer",
+  "version": "0.1.0",
+  "description": "Firefox extension that turns bare open-directory listings into a fast, rich file explorer.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "npm run typecheck && node scripts/build.mjs",
+    "dev": "node scripts/build.mjs --watch",
+    "package": "npm run build && node scripts/build.mjs --zip",
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\""
+  },
+  "dependencies": {
+    "jszip": "^3.10.1"
+  },
+  "devDependencies": {
+    "@types/firefox-webext-browser": "^120.0.4",
+    "esbuild": "^0.24.2",
+    "typescript": "^5.7.3"
+  }
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      :root { color-scheme: dark; }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; }
+      body {
+        width: 300px;
+        background: #0a0b0d;
+        color: #e6e8ea;
+        font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        padding: 16px;
+      }
+      .row { display: flex; align-items: center; gap: 11px; margin-bottom: 14px; }
+      .logo {
+        width: 34px; height: 34px; border-radius: 9px;
+        border: 1px solid #2a2e34; background: #15181c;
+        display: flex; align-items: center; justify-content: center; flex: none;
+      }
+      .title { font-size: 14px; font-weight: 600; }
+      .host { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11.5px; color: #7a828c; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      button {
+        width: 100%; font-family: inherit; font-size: 13px; cursor: pointer;
+        border-radius: 9px; padding: 10px 12px; margin-top: 8px;
+        display: flex; align-items: center; justify-content: center; gap: 8px;
+        transition: filter .15s, background .15s, border-color .15s;
+      }
+      .primary { border: 1px solid transparent; background: #f2f4f6; color: #0a0b0d; font-weight: 600; }
+      .primary:hover { filter: brightness(1.08); }
+      .ghost { border: 1px solid #2a2e34; background: #15181c; color: #9aa1aa; }
+      .ghost:hover { background: #1e2126; color: #e6e8ea; }
+      .hint { font-size: 11.5px; color: #626973; margin-top: 12px; line-height: 1.45; }
+    </style>
+  </head>
+  <body>
+    <div class="row">
+      <span class="logo">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2f4f6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+      </span>
+      <div style="min-width:0;">
+        <div class="title">Open Directory Explorer</div>
+        <div class="host" id="host">—</div>
+      </div>
+    </div>
+
+    <button class="primary" id="open">Открыть в Explorer</button>
+    <button class="ghost" id="options">Настройки и правила</button>
+
+    <div class="hint" id="hint">
+      На open-directory страницах Explorer открывается автоматически. Кнопка выше —
+      ручной запуск (в т.ч. пассивный поиск скрытых файлов на обычной странице).
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>
