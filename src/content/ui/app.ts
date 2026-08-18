@@ -19,15 +19,6 @@ type ListFormat = "aria2" | "wget-i" | "wget-r" | "jdownloader" | "rclone" | "m3
 
 const VIRTUAL_THRESHOLD = 400;
 
-// Sensitive files that are *visible in the listing* (complements the probe).
-const SENSITIVE: { re: RegExp; risk: RiskLevel; noteKey: string }[] = [
-  { re: /^\.env(\..+)?$/i, risk: "critical", noteKey: "sens_env" },
-  { re: /^(id_rsa|id_ed25519|\.htpasswd|\.npmrc|\.pgpass|\.aws)$/i, risk: "critical", noteKey: "sens_key" },
-  { re: /^(wp-config|config|settings|secrets)\.(php|json|ya?ml|yml|ini|py|rb)$/i, risk: "high", noteKey: "sens_config" },
-  { re: /\.(sql|dump|bak|old|swp)$/i, risk: "high", noteKey: "sens_dump" },
-  { re: /^\.git/i, risk: "medium", noteKey: "sens_git" },
-];
-
 export class App {
   private root: HTMLElement;
   private settings!: Settings;
@@ -152,12 +143,6 @@ export class App {
       const base = e.name.split("/").pop() || e.name;
       const p = this.settings.scanner.paths.find((sp) => sp.value === e.name || sp.value.endsWith(base));
       byHref.set(e.href, { name: e.name, href: e.href, risk: p?.risk ?? "medium", note: p?.note || t("hidden_note_fallback"), source: "hidden" });
-    }
-    // 3) Sensitive files that are actually listed.
-    for (const e of this.entries) {
-      if (e.isDir || e.hidden || byHref.has(e.href)) continue;
-      const hit = SENSITIVE.find((s) => s.re.test(e.name));
-      if (hit) byHref.set(e.href, { name: e.name, href: e.href, risk: hit.risk, note: t(hit.noteKey), source: "listed" });
     }
     const order: Record<RiskLevel, number> = { critical: 0, high: 1, medium: 2 };
     return [...byHref.values()].sort((a, b) => order[a.risk] - order[b.risk]);
